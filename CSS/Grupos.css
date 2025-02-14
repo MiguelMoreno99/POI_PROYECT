@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%; 
+    margin: 20px auto;
+}
+
+.teams-container {
+    background: rgba(255, 255, 255, 0.8); 
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+    margin: auto; 
+}
+
+.teams-header {
+    position: relative;
+    background: rgba(255, 255, 255, 0.8); 
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+    margin: auto; 
+}
+
+.teams {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px; 
+    justify-content: center;
+}
+
+.team {
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 240px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+    margin: 15px; 
+}
+
+.team:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.team img {
+    width: 60px;
+    height: 60px;
+}
+
+.team p {
+    margin: 12px 0 0;
+}
+
+.equipos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #233d77;
+    color: white;
+    border-radius: 10px;
+}
+
+#crear-grupo-btn {
+    position: absolute;
+    top: 30px;
+    right: 70px;
+    padding: 10px 20px;
+    background-color: #2846a7; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+#crear-grupo-btn:hover {
+    background-color: #217388;
+}

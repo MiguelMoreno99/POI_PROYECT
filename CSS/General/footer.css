@@ -1,0 +1,36 @@
+/* Footer */
+.main-footer {
+    background-color: #002c5aa6;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.footer-opciones ul {
+    list-style-type: none;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10px;
+}
+
+.footer-opciones ul li {
+    display: inline;
+    text-align: center;
+    margin: 50px;
+}
+
+.footer-opciones ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.footer-opciones .footer-final {
+    font-size: 20px;
+    font-style: italic;
+    margin-top: 30px;
+}
+
+.footer-opciones ul li a:hover {
+    text-decoration: underline;
+}
