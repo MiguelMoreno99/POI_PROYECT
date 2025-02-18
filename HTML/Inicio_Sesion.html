@@ -19,19 +19,21 @@
 
             <div class="form-grupo">
                 <label for="correo_usuario">Correo Electrónico</label>
-                <input id="correo" type="text" name="correo_usuario">
+                <input id="email" type="email" name="correo_usuario">
+                <div class="error-message"></div>
             </div>
 
             <div class="form-grupo">
                 <label for="contrasenia_usuario">Contraseña</label>
-                <input id="contrasenia" type="password" name="contrasenia_usuario">
+                <input id="password" type="password" name="contrasenia_usuario">
+                <div class="error-message"></div>
             </div>
 
-            <button type="submit" class="btn">Iniciar Sesión</button>
+            <button type="submit" id="loginBtn" class="btn">Iniciar Sesión</button>
             <br><br>
             <div class="form-grupo">
                 <label>¿No tienes una cuenta?</label>
-                <a href="/HTML/Registro_usuario.html">Registrarse</a>
+                <a href="/HTML/registro_usuario.html">Registrarse</a>
             </div>
             
 
@@ -40,6 +42,7 @@
 
     <div id="footer-container"></div>
     <script src="../JS/templates.js"></script>
+    <script src="../JS/inicio_sesion.js"></script>
 </body>
 
 </html>

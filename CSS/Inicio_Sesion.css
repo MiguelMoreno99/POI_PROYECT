@@ -40,6 +40,20 @@ h2 {
     border-radius: 5px;
 }
 
+/* Estilos para el campo inválido */
+.invalid {
+    border: 2px solid red !important;
+    outline: none;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: none;
+}
+
 .radio-grupo {
     display: flex;
     justify-content: center;
