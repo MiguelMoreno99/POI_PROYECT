@@ -8,10 +8,15 @@
 body {
     background-image: url('../../imagenes/Fondos.webp');
     background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    font-family:'Segoe UI', sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+main{
+    flex: 1;
 }

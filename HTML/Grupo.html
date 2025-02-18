@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes Directos</title>
+    <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css">
+    <link rel="stylesheet" href="../CSS/GENERAL/header.css">
+    <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
+    <link rel="stylesheet" href="../CSS/Grupo.css">
+</head>
+
+<body>
+
+    <div id="header-container"></div>
+    <div class="dm-container">
+        <div class="sidebar">
+
+            <h2>Equipo</h2>
+
+            <ul class="chat-list">
+                <li class="chat-item">Tareas</li>
+                <li class="chat-item">Agregar integrante</li>
+                <li class="chat-item">Eliminar integrante</li>
+                <li class="chat-item">Abandonar Grupo</li>
+            </ul>
+        </div>
+
+        <div class="chat-window">
+            <div class="chat-header">
+                <div class="user-info">
+                    <h3>Chat</h3>
+                </div>
+                <button id="llamada-btn"><img src="../Imagenes/logotelefono.png" alt="Icono"></button>
+                <button id="videollamada-btn"><img src="../Imagenes/logovideollamada.png" alt="Icono"></button>
+            </div>
+
+            <div class="chat-messages">
+                <div class="message received">Ejemplo 1</div>
+                <div class="message sent">Ejemplo 2</div>
+            </div>
+
+            <div class="message-input">
+                <button id="imagenes-btn"><img src="../Imagenes/logocamara.png" alt="Icono"></button>
+                <button id="audio-btn"><img src="../Imagenes/logoaudio.png" alt="Icono"></button>
+                <input type="text" placeholder="Escribe un mensaje..." id="message-box">
+                <button id="send-btn">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+    <script src="../JS/templates.js"></script>
+</body>
+
+</html>
