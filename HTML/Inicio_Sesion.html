@@ -1,48 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Página de Inicio de Sesión</title>
-    <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css">
-    <link rel="stylesheet" href="../CSS/Inicio_Sesion.css">
-    <link rel="stylesheet" href="../CSS/GENERAL/header.css">
-    <link rel="stylesheet" href="../CSS/GENERAL/footer.css">
-</head>
+    <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css" />
+    <link rel="stylesheet" href="../CSS/inicio_sesion.css" />
+    <link rel="stylesheet" href="../CSS/GENERAL/header.css" />
+    <link rel="stylesheet" href="../CSS/GENERAL/footer.css" />
+  </head>
 
-<body>
+  <body>
     <div id="header-container"></div>
     <main class="registro-contenedor">
-        <div class="registro-caja">
-            <h2>Iniciar Sesión</h2>
+      <div class="registro-caja">
+        <h2>Iniciar Sesión</h2>
 
-            <div class="form-grupo">
-                <label for="correo_usuario">Correo Electrónico</label>
-                <input id="email" type="email" name="correo_usuario">
-                <div class="error-message"></div>
-            </div>
-
-            <div class="form-grupo">
-                <label for="contrasenia_usuario">Contraseña</label>
-                <input id="password" type="password" name="contrasenia_usuario">
-                <div class="error-message"></div>
-            </div>
-
-            <button type="submit" id="loginBtn" class="btn">Iniciar Sesión</button>
-            <br><br>
-            <div class="form-grupo">
-                <label>¿No tienes una cuenta?</label>
-                <a href="/HTML/registro_usuario.html">Registrarse</a>
-            </div>
-            
-
+        <div class="form-grupo">
+          <label for="correo_usuario">Correo Electrónico</label>
+          <input id="email" type="email" name="correo_usuario" />
+          <div class="error-message"></div>
         </div>
+
+        <div class="form-grupo">
+          <label for="contrasenia_usuario">Contraseña</label>
+          <input id="password" type="password" name="contrasenia_usuario" />
+          <div class="error-message"></div>
+        </div>
+
+        <button type="submit" id="loginBtn" class="btn">Iniciar Sesión</button>
+        <br /><br />
+        <div class="form-grupo">
+          <label>¿No tienes una cuenta?</label>
+          <a href="/HTML/registro_usuario.html">Registrarse</a>
+        </div>
+      </div>
     </main>
 
     <div id="footer-container"></div>
     <script src="../JS/templates.js"></script>
     <script src="../JS/inicio_sesion.js"></script>
-</body>
-
+  </body>
 </html>

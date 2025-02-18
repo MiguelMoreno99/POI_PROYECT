@@ -65,13 +65,13 @@
 }
 
 .chat-header .user-info {
-    flex-grow: 0.9; 
+    flex-grow: 0.9;
 }
 
 .chat-header .buttons {
     display: flex;
     align-items: center;
-    gap: 0px; 
+    gap: 0px;
 }
 
 .chat-messages {
@@ -129,7 +129,7 @@
 
 #imagenes-btn {
     padding: 10px 20px;
-    background-color: #28a745; /* Verde */
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 5px;
@@ -143,7 +143,7 @@
 
 #audio-btn {
     padding: 10px 20px;
-    background-color: #28a745; /* Verde */
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 5px;
@@ -192,24 +192,27 @@
 
 #imagenes-btn img,
 #audio-btn img {
-    width: 24px; 
+    width: 24px;
     height: 24px;
 }
 
-#llamada-btn, #videollamada-btn {
+#llamada-btn,
+#videollamada-btn {
     background-color: #28a745;
     border: none;
     border-radius: 5px;
     padding: 8px;
     cursor: pointer;
-    margin: 0; 
+    margin: 0;
 }
 
-#llamada-btn:hover, #videollamada-btn:hover {
+#llamada-btn:hover,
+#videollamada-btn:hover {
     background-color: #218838;
 }
 
-#llamada-btn img, #videollamada-btn img {
+#llamada-btn img,
+#videollamada-btn img {
     width: 24px;
     height: 24px;
     margin: 0;
@@ -219,8 +222,9 @@
     background-color: #218838;
 }
 
+/* Espacio entre el nombre y el botón */
 .user-info {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espacio entre el nombre y el botón */
+    gap: 10px;
 }

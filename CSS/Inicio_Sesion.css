@@ -17,7 +17,7 @@
 }
 
 h2 {
-    color:cornflowerblue;
+    color: cornflowerblue;
     margin-bottom: 20px;
 }
 
@@ -68,7 +68,7 @@ h2 {
 button.btn {
     width: 100%;
     padding: 10px;
-    background-color:cornflowerblue;
+    background-color: cornflowerblue;
     color: white;
     border: none;
     border-radius: 5px;
@@ -77,6 +77,5 @@ button.btn {
 }
 
 button.btn:hover {
-    background-color:cadetblue;
+    background-color: cadetblue;
 }
-

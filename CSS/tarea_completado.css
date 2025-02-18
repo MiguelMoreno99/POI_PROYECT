@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #0b3d91; /* Fondo azul */
+    background-color: #0b3d91;
     color: #0e0e0e;
 }
 
@@ -10,7 +10,7 @@ body {
     max-width: 900px;
     margin: 50px auto;
     padding: 30px;
-    background-color: #a2b5ce; /* Azul claro */
+    background-color: #a2b5ce;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     position: relative;
@@ -47,11 +47,13 @@ body {
     margin: 0;
 }
 
-.content, .evaluation {
+.content,
+.evaluation {
     margin-bottom: 20px;
 }
 
-.content h2, .evaluation h2 {
+.content h2,
+.evaluation h2 {
     font-size: 1.8em;
     border-bottom: 2px solid #38804e;
     padding-bottom: 5px;
