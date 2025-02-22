@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css" />
+    <link rel="stylesheet" href="../CSS/GENERAL/header.css" />
+    <link rel="stylesheet" href="../CSS/GENERAL/footer.css" />
+    <link rel="stylesheet" href="../CSS/Correo.css" />
+  </head>
+  <body>
+    <div id="header-container"></div>
+    <div class="main-container">
+      <div class="form-container">
+        <form action="send_email.php" method="post">
+          <h2>Enviar Correo Electrónico</h2>
+          <label for="to">Para:</label>
+          <input type="email" id="to" name="to" required />
+
+          <label for="subject">Asunto:</label>
+          <input type="text" id="subject" name="subject" required />
+
+          <label for="message">Mensaje:</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+    <div id="footer-container"></div>
+    <script src="../JS/templates.js"></script>
+  </body>
+</html>

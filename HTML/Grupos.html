@@ -16,13 +16,25 @@
       <div class="container">
         <div class="teams-header">
           <h1>Grupos</h1>
-          <button id="crear-grupo-btn" onclick="window.location.href=''">
-            Crear un grupo
+          <button id="crear-grupo-btn" onclick="openModal()">
+            Crear grupo
           </button>
+          <!--VENTANA MODAL PARA CREAR GRUPO-->
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <h2>Nuevo Grupo</h2>
+              <input
+                type="text"
+                id="nombreGrupo"
+                placeholder="Ingresa el nombre del grupo"
+              />
+              <button onclick="submitName()">Enviar</button>
+              <button class="close-btn" onclick="closeModal()">Cancelar</button>
+            </div>
+          </div>
+          <!--VENTANA MODAL PARA CREAR GRUPO-->
         </div>
-
         <br />
-
         <div class="teams-container">
           <br />
           <br />
@@ -30,30 +42,37 @@
             <div class="team" onclick="location.href='grupo.html'">
               <img src="../Imagenes/Equipo2.png" alt="Icono" />
               <p>Equipo1</p>
+              <label class="MessageNotification">1 nuevo mensaje</label>
             </div>
             <div class="team" onclick="location.href='grupo.html'">
               <img src="../Imagenes/Equipo2.png" alt="Icono" />
               <p>Equipo2</p>
+              <label class="MessageNotification">2 nuevos mensajes</label>
             </div>
             <div class="team" onclick="location.href='grupo.html'">
               <img src="../Imagenes/Equipo2.png" alt="Icono" />
               <p>Equipo3</p>
+              <label class="MessageNotification"></label>
             </div>
             <div class="team" onclick="location.href='grupo.html'">
               <img src="../Imagenes/Equipo2.png" alt="Icono" />
               <p>Equipo4</p>
+              <label class="MessageNotification"></label>
             </div>
             <div class="team" onclick="location.href='grupo.html'">
               <img src="../Imagenes/Equipo2.png" alt="Icono" />
               <p>Equipo5</p>
+              <label class="MessageNotification"></label>
             </div>
             <div class="team" onclick="location.href='grupo.html'">
               <img src="../Imagenes/Equipo2.png" alt="Icono" />
               <p>Equipo6</p>
+              <label class="MessageNotification"></label>
             </div>
             <div class="team" onclick="location.href='grupo.html'">
               <img src="../Imagenes/Equipo2.png" alt="Icono" />
               <p>Equipo7</p>
+              <label class="MessageNotification"></label>
             </div>
             <div class="team" onclick="location.href='grupo.html'">
               <img src="../Imagenes/Equipo2.png" alt="Icono" />
@@ -66,5 +85,6 @@
 
     <div id="footer-container"></div>
     <script src="../JS/templates.js"></script>
+    <script src="../JS/crear_grupo.js"></script>
   </body>
 </html>

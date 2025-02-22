@@ -1,0 +1,103 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: block;
+    padding: 0;
+    margin: 0;
+    font-size: large;
+    background-color: rgba(5, 5, 5, 0);
+}
+
+.Header-Container {
+    padding: 1em;
+    padding-inline: 5%;
+    display: flex;
+    justify-content: start;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.divProfile {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-inline: 10%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.555);
+    border-radius: 15px;
+}
+
+.divProfile img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+}
+
+.Info-Container {
+    display: flex;
+    padding: 1em;
+    background-color: rgba(220, 235, 252, 0.938);
+}
+
+.divInfo {
+    display: block;
+    width: 30%;
+    justify-content: center;
+    margin-left: 14%;
+}
+
+.divInfo label {
+    font-weight: bold;
+}
+
+.divInfo input {
+    width: 100%;
+    padding: 0.7em;
+    margin: 0.5em 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 0;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
+}
+
+.divInfo button {
+    color: white;
+    background-color: black;
+    border: none;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.divInfo img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
+}
+
+.divInfo button:hover {
+    background-color: rgb(58, 72, 83);
+}
+
+.divLogros-Container {
+    justify-items: center;
+    padding: 2em;
+    width: 50%;
+}
+
+.divLogros {
+    display: block;
+    background-color: rgb(236, 236, 236);
+    width: 400px;
+    height: fit-content;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.322);
+    justify-items: center;
+    align-content: center;
+    padding: 10px;
+}

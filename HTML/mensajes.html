@@ -22,9 +22,15 @@
         </div>
 
         <ul class="chat-list">
-          <li class="chat-item">Usuario 1</li>
-          <li class="chat-item">Usuario 2</li>
-          <li class="chat-item">Usuario 3</li>
+          <li class="chat-item">
+            Usuario 1 <label class="messageNotification">+1 mensaje</label>
+          </li>
+          <li class="chat-item">
+            Usuario 2 <label class="messageNotification">+2 mensajes</label>
+          </li>
+          <li class="chat-item">
+            Usuario 3 <label class="messageNotification"></label>
+          </li>
         </ul>
       </div>
 
@@ -32,10 +38,30 @@
         <div class="chat-header">
           <div class="user-info">
             <h3>Usuario 1</h3>
+            <label class="estadoUsuario">Activo 🟢</label>
           </div>
-          <button id="llamada-btn">
-            <img src="../Imagenes/logotelefono.png" alt="Icono" />
+          <label>Cifrado de mensajes: </label>
+          <button
+            id="cifrado-btn"
+            class="cifrado-btn"
+            onclick="toggleCifrado()"
+          >
+            Desactivado
           </button>
+
+          <!--Script temporal para el boton de cifrado-->
+          <script>
+            function toggleCifrado() {
+              var button = document.getElementById("cifrado-btn");
+              button.classList.toggle("active");
+              if (button.classList.contains("active")) {
+                button.textContent = "Activado";
+              } else {
+                button.textContent = "Desactivado";
+              }
+            }
+          </script>
+
           <button id="videollamada-btn">
             <img src="../Imagenes/logovideollamada.png" alt="Icono" />
           </button>
@@ -48,10 +74,13 @@
 
         <div class="message-input">
           <button id="imagenes-btn">
-            <img src="../Imagenes/logocamara.png" alt="Icono" />
+            <img src="../Imagenes/clip.png" alt="Icono" />
           </button>
           <button id="audio-btn">
             <img src="../Imagenes/logoaudio.png" alt="Icono" />
+          </button>
+          <button id="location-btn">
+            <img src="../Imagenes/ubicacion.png" alt="Icono" />
           </button>
           <input
             type="text"

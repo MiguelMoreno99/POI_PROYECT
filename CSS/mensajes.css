@@ -41,6 +41,7 @@
     border-radius: 5px;
     cursor: pointer;
     color: white;
+    font-weight: bold;
 }
 
 .chat-item:hover {
@@ -196,6 +197,7 @@
     height: 24px;
 }
 
+#location-btn,
 #llamada-btn,
 #videollamada-btn {
     background-color: #28a745;
@@ -206,9 +208,26 @@
     margin: 0;
 }
 
+#location-btn:hover,
 #llamada-btn:hover,
 #videollamada-btn:hover {
     background-color: #218838;
+}
+
+#location-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#location-btn img {
+    width: 20px;
+    height: 25px;
+    margin: 0;
 }
 
 #llamada-btn img,
@@ -222,9 +241,35 @@
     background-color: #218838;
 }
 
+.estadoUsuario {
+
+    font-weight: 500;
+    color: #b3c9f8;
+}
+
 /* Espacio entre el nombre y el botón */
 .user-info {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.messageNotification {
+    font-style: italic;
+    color: #b3c9f8;
+    font-size: 13px;
+    margin-left: 80px;
+}
+
+.cifrado-btn {
+    background-color: #ff0000;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.cifrado-btn.active {
+    background-color: #73fa92;
 }

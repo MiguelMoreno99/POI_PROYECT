@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil</title>
+    <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css" />
+    <link rel="stylesheet" href="../CSS/Usuario.css" />
+    <link rel="stylesheet" href="../CSS/GENERAL/header.css" />
+    <link rel="stylesheet" href="../CSS/GENERAL/footer.css" />
+  </head>
+  <body>
+    <div id="header-container"></div>
+    <div class="Header-Container">
+      <div class="divProfile">
+        <h1>usuario@email.com</h1>
+        <img src="../Imagenes/perfil.webp" alt="imagen" />
+      </div>
+    </div>
+
+    <div class="Info-Container">
+      <div class="divInfo">
+        <form action="">
+          <h1>Información del usuario</h1>
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" placeholder="Nombre(s)" />
+          <label for="apellido-paterno">Apellido Paterno:</label>
+          <input
+            type="text"
+            id="apellido-paterno"
+            placeholder="Apellido Paterno"
+          />
+          <label for="apellido-materno">Apellido Materno:</label>
+          <input
+            type="text"
+            id="apellido-materno"
+            placeholder="Apellido Materno"
+          />
+          <label for="correo">Correo:</label>
+          <input type="email" id="correo" placeholder="nombre@email.com" />
+          <label for="contrasena">Contraseña:</label>
+          <input type="password" id="contrasena" />
+          <img
+            class="profilePreview"
+            id="profilePreview"
+            src="../../imagenes/perfil.webp"
+            alt="Foto de perfil"
+          />
+          <input
+            type="file"
+            id="foto"
+            name="imagen_usuario"
+            accept="image/*"
+            onchange="loadFile(event)"
+          />
+          <div class="error-message"></div>
+          <button type="submit">Guardar Cambios</button>
+        </form>
+      </div>
+      <div class="divLogros-Container">
+        <div class="divLogros">
+          <h1>Logros Obtenidos</h1>
+          <ul>
+            <li>Completa 3 tareas</li>
+            <li>Completa 2 tareas</li>
+            <li>Asigna 3 tareas</li>
+            <li>Asigna 2 tareas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="footer-container"></div>
+    <script src="../JS/templates.js"></script>
+  </body>
+</html>
