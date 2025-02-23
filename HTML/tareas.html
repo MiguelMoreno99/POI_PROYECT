@@ -20,15 +20,35 @@
         <!--VENTANA MODAL PARA CREAR TAREA-->
         <div id="myModal" class="modal">
           <div class="modal-content">
-            <h2>Nueva Tarea</h2>
-            <input
-              type="text"
-              id="nombreTarea"
-              placeholder="Ingresa el nombre de la tarea"
-            />
-            <h2>Fecha de entrega</h2>
-            <input type="date" id="FechaTarea" />
-            <button onclick="submitName()">Enviar</button>
+            <div class="form-grupo">
+              <h2>Titulo tarea</h2>
+              <input
+                type="text"
+                id="tituloTareaInput"
+                placeholder="Ingresa el nombre de la tarea"
+              />
+              <div class="error-message"></div>
+            </div>
+
+            <div class="form-grupo">
+              <h3>Instrucciones</h3>
+              <textarea
+                id="instruccionesTareaInput"
+                name="instruccionesTarea"
+                rows="6"
+              ></textarea>
+              <div class="error-message"></div>
+            </div>
+
+            <div class="form-grupo">
+              <h3>Fecha de entrega</h3>
+              <input type="date" id="FechaTareaInput" />
+              <div class="error-message"></div>
+            </div>
+
+            <button type="submit" id="crear_tareaBtn" class="btn">
+              Crear Tarea
+            </button>
             <button class="close-btn" onclick="closeModal()">Cancelar</button>
           </div>
         </div>
@@ -91,6 +111,6 @@
     </div>
     <div id="footer-container"></div>
     <script src="../JS/templates.js"></script>
-    <script src="../JS/crear_tarea.js"></script>
+    <script src="../JS/tareas.js"></script>
   </body>
 </html>

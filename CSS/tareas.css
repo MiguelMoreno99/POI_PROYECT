@@ -16,6 +16,24 @@ h1 {
     text-align: center;
 }
 
+#instruccionesTareaInput{
+    width:45em;
+}
+
+/* Estilos para el campo inválido */
+.invalid {
+    border: 2px solid red !important;
+    outline: none;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: none;
+}
+
 .task {
     display: flex;
     justify-content: space-between;
