@@ -1,10 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
 .container {
     width: 80%;
     margin: 20px auto;
@@ -16,6 +9,20 @@ body {
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     margin: auto;
+}
+
+/* Estilos para el campo inválido */
+.invalid {
+    border: 2px solid red !important;
+    outline: none;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: none;
 }
 
 .teams-header {
@@ -108,6 +115,10 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+}
+
+#nombreGrupo{
+    width: 20em;
 }
 
 .modal-content {

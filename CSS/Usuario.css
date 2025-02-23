@@ -1,18 +1,27 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: block;
-    padding: 0;
-    margin: 0;
-    font-size: large;
-    background-color: rgba(5, 5, 5, 0);
-}
-
 .Header-Container {
     padding: 1em;
     padding-inline: 5%;
     display: flex;
     justify-content: start;
     background-color: rgba(0, 0, 0, 0);
+}
+
+#footer-container {
+    margin-top: auto;
+}
+
+/* Estilos para el campo inválido */
+.invalid {
+    border: 2px solid red !important;
+    outline: none;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: none;
 }
 
 .divProfile {

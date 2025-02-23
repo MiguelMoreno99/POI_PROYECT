@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Equipos</title>
+    <title>Grupos</title>
     <link rel="stylesheet" href="../CSS/GENERAL/general_styles.css" />
     <link rel="stylesheet" href="../CSS/grupos.css" />
     <link rel="stylesheet" href="../CSS/GENERAL/header.css" />
@@ -22,13 +22,17 @@
           <!--VENTANA MODAL PARA CREAR GRUPO-->
           <div id="myModal" class="modal">
             <div class="modal-content">
-              <h2>Nuevo Grupo</h2>
-              <input
-                type="text"
-                id="nombreGrupo"
-                placeholder="Ingresa el nombre del grupo"
-              />
-              <button onclick="submitName()">Enviar</button>
+              <div class="form-grupo">
+                <h2>Nuevo Grupo</h2>
+                <input
+                  type="text"
+                  id="nombreGrupo"
+                  placeholder="Ingresa el nombre del grupo"
+                />
+                <div class="error-message"></div>
+                <br>
+              </div>
+              <button type="submit" id="crear_grupoBtn" class="btn">Crear Grupo</button>
               <button class="close-btn" onclick="closeModal()">Cancelar</button>
             </div>
           </div>
@@ -85,6 +89,6 @@
 
     <div id="footer-container"></div>
     <script src="../JS/templates.js"></script>
-    <script src="../JS/crear_grupo.js"></script>
+    <script src="../JS/grupos.js"></script>
   </body>
 </html>
