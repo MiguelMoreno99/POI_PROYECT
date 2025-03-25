@@ -9,31 +9,6 @@
     margin-bottom: auto;
 }
 
-h1 {
-    font-size: 24px;
-    color: #0056b3;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-#instruccionesTareaInput{
-    width:45em;
-}
-
-/* Estilos para el campo inválido */
-.invalid {
-    border: 2px solid red !important;
-    outline: none;
-}
-
-/* Mensaje de error */
-.error-message {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 4px;
-    display: none;
-}
-
 .task {
     display: flex;
     justify-content: space-between;
@@ -120,22 +95,6 @@ a.task:nth-child(odd):hover {
     opacity: 0.9;
 }
 
-.btn-crear {
-    width: 20%;
-    padding: 10px;
-    background-color: rgb(24, 24, 24);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-
-}
-
-.btn-crear:hover {
-    background-color: cadetblue;
-}
-
 .task-header {
     display: block;
     align-items: center;
@@ -155,6 +114,7 @@ a.task:nth-child(odd):hover {
 }
 
 .modal-content {
+    min-width: 500px;
     background-color: white;
     padding: 2em;
     border-radius: 10px;
@@ -165,18 +125,6 @@ a.task:nth-child(odd):hover {
     margin-top: 0;
 }
 
-.modal-content input {
-    width: 100%;
-    padding: 0.5em;
-    margin: 1em 0;
-    box-sizing: border-box;
-}
-
-.modal-content button {
-    padding: 0.5em 1em;
-    background-color: #35739c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.form-grupo {
+    margin-right: 25px;
 }

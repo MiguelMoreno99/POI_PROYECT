@@ -16,13 +16,9 @@
     text-align: center;
 }
 
-h2 {
-    color: cornflowerblue;
-    margin-bottom: 20px;
-}
-
 .form-grupo {
     margin-bottom: 15px;
+    margin-right: 25px;
 }
 
 .form-grupo label {
@@ -33,49 +29,10 @@ h2 {
     font-weight: bold;
 }
 
-.form-grupo input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Estilos para el campo inválido */
-.invalid {
-    border: 2px solid red !important;
-    outline: none;
-}
-
-/* Mensaje de error */
-.error-message {
-    color: red;
-    font-size: 0.8rem;
-    margin-top: 4px;
-    display: none;
-}
-
-.radio-grupo {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
-}
-
 .form-grupo .profilePreview {
-    width: 120px;
-}
-
-button.btn {
-    width: 100%;
-    padding: 10px;
-    background-color: rgb(24, 24, 24);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button.btn:hover {
-    background-color: cadetblue;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
 }

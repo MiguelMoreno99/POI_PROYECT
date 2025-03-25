@@ -15,7 +15,7 @@
     <div class="container">
       <div class="teams-header">
         <h1>Grupos</h1>
-        <button id="crear-grupo-btn" onclick="openModal()">
+        <button id="crear-grupo-btn" class="btn crear-grupo" onclick="openModal()">
           Crear grupo
         </button>
         <!--VENTANA MODAL PARA CREAR GRUPO-->
@@ -27,8 +27,8 @@
               <div class="error-message"></div>
               <br>
             </div>
-            <button type="submit" id="crear_grupoBtn" class="btn">Crear Grupo</button>
-            <button class="close-btn" onclick="closeModal()">Cancelar</button>
+            <button type="submit" id="crear_grupoBtn" class="btn creargrupo">Crear Grupo</button>
+            <button class="btn close" onclick="closeModal()">Cancelar</button>
           </div>
         </div>
         <!--VENTANA MODAL PARA CREAR GRUPO-->

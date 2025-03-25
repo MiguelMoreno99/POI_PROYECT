@@ -14,7 +14,7 @@
   <div class="container">
     <div class="task-header">
       <h1>Tareas</h1>
-      <button class="btn-crear" onclick="openModal()">Crear Tarea</button>
+      <button class="btn crear" onclick="openModal()">Crear Tarea</button>
 
       <!--VENTANA MODAL PARA CREAR TAREA-->
       <div id="myModal" class="modal">
@@ -40,7 +40,7 @@
           <button type="submit" id="crear_tareaBtn" class="btn">
             Crear Tarea
           </button>
-          <button class="close-btn" onclick="closeModal()">Cancelar</button>
+          <button class="btn close" onclick="closeModal()">Cancelar</button>
         </div>
       </div>
       <!--VENTANA MODAL PARA CREAR TAREA-->

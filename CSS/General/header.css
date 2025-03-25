@@ -5,16 +5,17 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.747);
     box-shadow: 0 0 10px rgb(0, 0, 0);
-    color: white;
     padding: 15px 30px;
+    color: white;
 }
 
 .main-header .logo img {
-    width: 70px;
+    width: 5em;
+    border-radius: 10px;
+    margin: 5px;
 }
 
 .nav-opciones ul {
-    list-style-type: none;
     display: flex;
     gap: 20px;
 }
@@ -24,9 +25,9 @@
 }
 
 .nav-opciones ul li a {
-    color: white;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: bold;
     padding: 10px;
 }
 
