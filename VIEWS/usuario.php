@@ -26,17 +26,20 @@
                 <form id="info_usuarioForm">
                     <div class="form-grupo">
                         <label for="Nombre">Nombre(s):</label>
-                        <input type="text" id="nombre" name="nombre_usuario" />
+                        <input type="text" id="nombre" name="nombre_usuario" value="Juan Alberto"
+                            autocomplete="username" />
                         <div class="error-message"></div>
                     </div>
                     <div class="form-grupo">
                         <label for="Usuario">Apellido paterno:</label>
-                        <input type="text" id="apellido_paterno" name="apellido_paterno" />
+                        <input type="text" id="apellido_paterno" name="apellido_paterno" value="Pérez"
+                            autocomplete="username" />
                         <div class="error-message"></div>
                     </div>
                     <div class="form-grupo">
                         <label for="Usuario">Apellido materno:</label>
-                        <input type="text" id="apellido_materno" name="apellido_materno" />
+                        <input type="text" id="apellido_materno" name="apellido_materno" value="Rodriguez"
+                            autocomplete="username" />
                         <div class="error-message"></div>
                     </div>
                     <div class="form-grupo">
