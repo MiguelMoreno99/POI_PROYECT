@@ -6,6 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     marcarTareaBtn.addEventListener('click', function (event) {
         event.preventDefault();
         alert("¡TAREA TERMINADA CON EXITO");
-        window.location.href = "tareas.html";
+        window.location.href = "tareas";
     });
 });

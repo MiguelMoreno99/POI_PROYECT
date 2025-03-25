@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         if (validarFormulario()) {
             alert("Inicio de Sesion Exitoso!");
-            window.location.href = "grupos.html"; // Cambia "index.html" por tu página principal
+            window.location.href = "/"; // Cambia "index.html" por tu página principal
         } else {
             alert("Por favor, corrige los errores antes de enviar.");
             return false; // Evita el envío si hay errores

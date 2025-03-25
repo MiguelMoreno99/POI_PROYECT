@@ -1,4 +1,3 @@
-<template id="footer-template">
   <footer class="main-footer">
     <div class="footer-opciones">
       <ul>
@@ -13,4 +12,3 @@
       </div>
     </div>
   </footer>
-</template>
