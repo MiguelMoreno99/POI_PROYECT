@@ -9,9 +9,9 @@ DocumentRoot "C:/xampp/htdocs"
 </Directory>
 
 <VirtualHost *:80>
-    DocumentRoot "C:\XAMPP\htdocs\POI_FRANCO\Server\Public"
+    DocumentRoot "C:\XAMPP\htdocs\POI_PROYECT\Server\Public"
     DirectoryIndex index.php
-    <Directory "C:\XAMPP\htdocs\POI_FRANCO\Server\Public">
+    <Directory "C:\XAMPP\htdocs\POI_PROYECT\Server\Public">
         AllowOverride None
         Require all granted
         Options FollowSymLinks
