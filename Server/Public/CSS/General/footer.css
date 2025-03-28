@@ -1,0 +1,24 @@
+/* Footer */
+.main-footer {
+    background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0.699));
+    color: white;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.footer-opciones ul {
+    margin: 10px 10%;
+}
+
+.footer-opciones ul li {
+    display: inline;
+    text-align: center;
+    margin: 20px;
+}
+
+.footer-opciones .footer-final {
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 20px;
+}

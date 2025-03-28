@@ -1,0 +1,282 @@
+.dm-container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 75vh;
+    background-color: rgba(255, 255, 255, 0.537);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px auto;
+    flex-grow: 1;
+}
+
+.sidebar {
+    width: 30%;
+    background-color: #243861;
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.404);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 22px;
+}
+
+.chat-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.chat-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #192986;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.chat-item:hover {
+    background-color: #2f5b96;
+}
+
+.chat-window {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #233d77;
+    color: white;
+    border-bottom: 1px solid #ccc;
+}
+
+.chat-header .user-info {
+    flex-grow: 0.9;
+}
+
+.chat-header .buttons {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+
+.chat-messages {
+    padding: 20px;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    max-width: 60%;
+}
+
+.received {
+    background-color: #e0e0e0;
+    align-self: flex-start;
+}
+
+.sent {
+    background-color: #afb6fa;
+    align-self: flex-end;
+}
+
+.message-input {
+    display: flex;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-top: 1px solid #ccc;
+}
+
+#message-box {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+#send-btn {
+    padding: 10px 20px;
+    background-color: rgb(10, 97, 179);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#send-btn:hover {
+    background-color: #104cce;
+}
+
+#imagenes-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#imagenes-btn:hover {
+    background-color: #218838;
+}
+
+#audio-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#audio-btn:hover {
+    background-color: #218838;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#Usuario {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.btn-search {
+    padding: 10px 20px;
+    background-color: rgb(43, 76, 226);
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-search:hover {
+    background-color: #2b65e2;
+}
+
+.message-date {
+    font-size: 0.8em;
+    color: gray;
+    margin-left: 10px;
+}
+
+#imagenes-btn img,
+#audio-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+#location-btn,
+#llamada-btn,
+#videollamada-btn {
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+    margin: 0;
+}
+
+#location-btn:hover,
+#llamada-btn:hover,
+#videollamada-btn:hover {
+    background-color: #218838;
+}
+
+#location-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#location-btn img {
+    width: 20px;
+    height: 25px;
+    margin: 0;
+}
+
+#llamada-btn img,
+#videollamada-btn img {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+}
+
+#videollamada-btn:hover {
+    background-color: #218838;
+}
+
+.estadoUsuario {
+
+    font-weight: 500;
+    color: #b3c9f8;
+}
+
+/* Espacio entre el nombre y el botón */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.recompensasUsuario {
+    font-style: italic;
+    color: #b3c9f8;
+    font-size: .9em;
+    margin-left: 10px;
+}
+
+.messageNotification {
+    font-style: italic;
+    color: #b3c9f8;
+    font-size: 1em;
+    margin-left: 20px;
+}
+
+.cifrado-btn {
+    background-color: #ff0000;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.cifrado-btn.active {
+    background-color: #73fa92;
+}

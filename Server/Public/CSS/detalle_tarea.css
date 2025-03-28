@@ -1,0 +1,43 @@
+/* Contenedor central */
+.registro-contenedor {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #a2b5ce;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+.content {
+    margin-bottom: 20px;
+}
+
+.content h2 {
+    font-size: 1.8em;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 5px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}

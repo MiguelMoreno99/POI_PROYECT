@@ -1,0 +1,38 @@
+/* Contenedor central */
+.registro-contenedor {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.registro-caja {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+.form-grupo {
+    margin-bottom: 15px;
+    margin-right: 25px;
+}
+
+.form-grupo label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form-grupo .profilePreview {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.253);
+}

@@ -1,0 +1,76 @@
+.main-container {
+  display: block;
+  justify-items: center;
+  align-items: center;
+  margin-bottom: auto;
+}
+
+.videocall-container {
+  width: 90%;
+  max-width: 800px;
+  background: rgb(15, 15, 15);
+  box-shadow: 0 0 10px rgb(63, 63, 63);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 5px;
+  margin-block: 5%;
+}
+
+.video-feed {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 56.25%;
+  border-radius: 10px;
+  background-color: #000;
+}
+
+.video-feed img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.controls {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.controls button {
+  color: white;
+  background-color: #0056b3;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+#Camera-On:hover {
+  background-color: black;
+  box-shadow: 0 0 10px green;
+}
+
+#Camera-Off:hover {
+  background-color: black;
+  box-shadow: 0 0 10px red;
+}
+
+#Colgar {
+  margin-left: 50%;
+  background-color: red;
+}
+
+#Colgar:hover {
+  background-color: black;
+  box-shadow: 0 0 10px red;
+}
+
+.controls button:hover {
+  background-color: #0056b3;
+}
