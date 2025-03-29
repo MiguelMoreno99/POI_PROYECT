@@ -33,7 +33,7 @@
                 </button>
                 <br /><br />
                 <div class="form-grupo">
-                    <label>¿No tienes una cuenta?</label>
+                    <label>¿No tienes una cuentaaaa?</label>
                     <a href="registro_usuario">Registrarse</a>
                 </div>
             </form>
@@ -41,7 +41,6 @@
     </main>
 
     <?php require 'TEMPLATES/footer.php'; ?>
-    <script src="http://localhost:2800/socket.io/socket.io.js"></script>
     <script src="JS/header.js"></script>
     <script src="JS/inicio_sesion.js"></script>
 </body>

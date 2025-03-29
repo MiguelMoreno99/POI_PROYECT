@@ -8,7 +8,7 @@ const confirmPasswordInput = document.getElementById('confirm_password');
 const fotoInput = document.getElementById('foto');
 const profilePreview = document.getElementById('profilePreview');
 const registerBtn = document.getElementById('registerBtn');
-const socket = io('http://localhost:2800');
+const socket = io('http://192.168.100.9:2800');
 
 // Expresiones regulares para validación
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Correo válido

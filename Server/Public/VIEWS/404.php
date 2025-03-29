@@ -17,6 +17,7 @@
         </div>
     </main>
     <?php require 'TEMPLATES/footer.php'; ?>
+    <?php require 'PHP/socket.php'; ?>
 </body>
 
 </html>

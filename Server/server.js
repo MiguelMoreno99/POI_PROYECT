@@ -130,7 +130,21 @@ io.on('connection', (socket) => {
                 socket.emit('mensaje_enviado', { success: false, message: 'Error al enviar el mensaje' });
                 return;
             }
+
             console.log('Mensaje enviado con éxito:', result.insertId);
+
+            const nuevoMensaje = {
+                id_mensaje: result.insertId,
+                texto_mensaje,
+                id_usuario1_mensaje,
+                id_usuario2_mensaje,
+                fecha_creacion: new Date()
+            };
+
+            // Enviar el mensaje al remitente y al destinatario en tiempo real
+            io.emit('nuevo_mensaje', nuevoMensaje);
+
+            // Confirmación de mensaje enviado (para depuración)
             socket.emit('mensaje_enviado', { success: true, id_mensaje: result.insertId });
         });
     });

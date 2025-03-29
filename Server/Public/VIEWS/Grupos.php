@@ -85,7 +85,7 @@
     </main>
 
     <?php require 'TEMPLATES/footer.php'; ?>
-    <script src="http://localhost:2800/socket.io/socket.io.js"></script>
+    <?php require 'PHP/socket.php'; ?>
     <script src="JS/grupos.js"></script>
     <script src="JS/header.js"></script>
 </body>

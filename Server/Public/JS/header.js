@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const socket = io('http://localhost:2800');; // Establecer conexión con el servidor
+    const socket = io('http://192.168.100.9:2800');; // Establecer conexión con el servidor
     const token = localStorage.getItem('token'); // Recuperar el token
     const navList = document.getElementById('nav-list');
     const userInfo = document.getElementById('user-info');

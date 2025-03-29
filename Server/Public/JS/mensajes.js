@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const socket = io('http://localhost:2800');
+    const socket = io('http://192.168.100.9:2800');
     const usuariosList = document.querySelector('.chat-list');
     const mensajesContainer = document.querySelector('.chat-messages');
     const userInfoHeader = document.querySelector('.user-info h3');
     const estadoUsuario = document.querySelector('.estadoUsuario');
     const sendBtn = document.getElementById('send-btn');
     const messageBox = document.getElementById('message-box');
-
     const usuarioActualId = localStorage.getItem('idUsuario');
 
     if (!usuarioActualId) {
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = 'inicio_sesion';
         return;
     }
-
     console.log('ID del usuario actual cargado:', usuarioActualId);
 
     socket.emit('obtener_usuarios_directos', { usuarioActualId });
@@ -51,10 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (respuesta.success) {
                 mensajesContainer.innerHTML = '';
                 respuesta.mensajes.forEach((mensaje) => {
-                    const div = document.createElement('div');
-                    div.classList.add(mensaje.id_usuario1_mensaje === parseInt(usuarioActualId) ? 'sent' : 'received');
-                    div.textContent = `${mensaje.texto_mensaje} (${new Date(mensaje.fecha_creacion).toLocaleString()})`;
-                    mensajesContainer.appendChild(div);
+                    mostrarMensaje(mensaje.texto_mensaje, mensaje.fecha_creacion, mensaje.id_usuario1_mensaje);
                 });
             } else {
                 mensajesContainer.innerHTML = `<p>Error al cargar mensajes: ${respuesta.message}</p>`;
@@ -62,27 +57,44 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function mostrarMensaje(texto, fecha, remitenteId) {
+        const div = document.createElement('div');
+        div.classList.add(remitenteId == usuarioActualId ? 'sent' : 'received');
+        div.textContent = `${texto} (${new Date(fecha).toLocaleString()})`;
+        mensajesContainer.appendChild(div);
+
+        // Desplazar la vista al último mensaje
+        mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
+    }
+
     sendBtn.addEventListener('click', () => {
         const texto = messageBox.value.trim();
         const idUsuarioDestino = userInfoHeader.getAttribute('data-id');
 
         if (texto && idUsuarioDestino) {
-            socket.emit('enviar_mensaje', {
+            const mensajeData = {
                 texto_mensaje: texto,
                 id_usuario1_mensaje: usuarioActualId,
                 id_usuario2_mensaje: idUsuarioDestino
-            });
+            };
 
+            // Emitir evento al servidor
+            socket.emit('enviar_mensaje', mensajeData);
+
+            // Mostrar el mensaje enviado sin esperar respuesta
+            mostrarMensaje(texto, new Date(), usuarioActualId);
+
+            // Limpiar el input
             messageBox.value = '';
         }
     });
 
-    socket.on('mensaje_enviado', (respuesta) => {
-        if (respuesta.success) {
-            console.log('Mensaje enviado con éxito. ID del mensaje:', respuesta.id_mensaje);
-            cargarMensajes(userInfoHeader.getAttribute('data-id'), userInfoHeader.textContent);
-        } else {
-            alert('Error al enviar el mensaje: ' + respuesta.message);
+    // Recibir mensajes en tiempo real
+    socket.on('nuevo_mensaje', (mensaje) => {
+        const idUsuarioActivo = userInfoHeader.getAttribute('data-id');
+
+        if (mensaje.id_usuario1_mensaje == idUsuarioActivo || mensaje.id_usuario2_mensaje == idUsuarioActivo) {
+            mostrarMensaje(mensaje.texto_mensaje, mensaje.fecha_creacion, mensaje.id_usuario1_mensaje);
         }
     });
 });
