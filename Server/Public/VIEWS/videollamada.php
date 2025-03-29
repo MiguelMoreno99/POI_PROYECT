@@ -25,6 +25,7 @@
     </div>
     <?php require 'TEMPLATES/footer.php'; ?>
     <?php require 'PHP/socket.php'; ?>
+    <script src="CONF/server_url.js"></script>
     <script src="JS/header.js"></script>
 </body>
 

@@ -1,3 +1,4 @@
+const servidor = require('./Public/CONF/config.js');
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -15,10 +16,10 @@ app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos est�
 
 // Configuración de la base de datos
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'POI'
+    host: servidor.HOST,
+    user: servidor.USER,
+    password: servidor.PASSWORD,
+    database: servidor.DATABASE_NAME
 });
 
 db.connect((err) => {
@@ -170,5 +171,5 @@ io.on('connection', (socket) => {
 
 // 🟢 Servidor escuchando en el puerto 2800
 server.listen(2800, () => {
-    console.log('🚀 Servidor WebSocket corriendo en http://localhost:2800');
+    console.log('🚀 Servidor WebSocket corriendo en: ', servidor.SERVER_URL);
 });

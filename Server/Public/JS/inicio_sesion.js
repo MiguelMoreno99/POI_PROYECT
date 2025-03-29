@@ -2,8 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
   const loginBtn = document.getElementById("loginBtn");
-  const socket = io("http://192.168.100.9:2800"); // Conectar al servidor con Socket.IO
-  // const socket = io("http://192.168.100.17:2800"); // Conectar al servidor con Socket.IO
+  const socket = io(SERVER_URL); // Conectar al servidor con Socket.IO
 
   // Expresión regular para validar correo
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
