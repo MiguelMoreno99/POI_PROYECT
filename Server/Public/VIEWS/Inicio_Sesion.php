@@ -33,7 +33,7 @@
                 </button>
                 <br /><br />
                 <div class="form-grupo">
-                    <label>¿No tienes una cuentaaaa?</label>
+                    <label>¿No tienes una cuenta?</label>
                     <a href="registro_usuario">Registrarse</a>
                 </div>
             </form>

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  //   const socket = io("http://192.168.100.9:2800"); // Conectar al servidor con Socket.IO
-  const socket = io("http://192.168.100.17:2800"); // Conectar al servidor con Socket.IO
+  const socket = io("http://192.168.100.9:2800"); // Conectar al servidor con Socket.IO
+  // const socket = io("http://192.168.100.17:2800"); // Conectar al servidor con Socket.IO
   const usuariosList = document.querySelector(".chat-list");
   const mensajesContainer = document.querySelector(".chat-messages");
   const userInfoHeader = document.querySelector(".user-info h3");
@@ -75,9 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     div.classList.add(remitenteId == usuarioActualId ? "sent" : "received");
     div.textContent = `${texto} (${new Date(fecha).toLocaleString()})`;
     mensajesContainer.appendChild(div);
-
-    // Desplazar la vista al último mensaje
-    mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
+    mensajesContainer.scrollTop = mensajesContainer.scrollHeight; // Desplazar la vista al último mensaje
   }
 
   sendBtn.addEventListener("click", () => {
@@ -91,14 +89,8 @@ document.addEventListener("DOMContentLoaded", function () {
         id_usuario2_mensaje: idUsuarioDestino,
       };
 
-      // Emitir evento al servidor
-      socket.emit("enviar_mensaje", mensajeData);
-
-      // Mostrar el mensaje enviado sin esperar respuesta
-      mostrarMensaje(texto, new Date(), usuarioActualId);
-
-      // Limpiar el input
-      messageBox.value = "";
+      socket.emit("enviar_mensaje", mensajeData); // Emitir evento al servidor
+      messageBox.value = ""; // Limpiar el input
     }
   });
 

@@ -68,8 +68,8 @@ function closeModal() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  //   const socket = io("http://192.168.100.9:2800"); // Conectar al servidor con Socket.IO
-  const socket = io("http://192.168.100.17:2800"); // Conectar al servidor con Socket.IO
+  const socket = io("http://192.168.100.9:2800"); // Conectar al servidor con Socket.IO
+  // const socket = io("http://192.168.100.17:2800"); // Conectar al servidor con Socket.IO
 
   // Obtener el token de sesión del almacenamiento local
   const token = localStorage.getItem("token");
