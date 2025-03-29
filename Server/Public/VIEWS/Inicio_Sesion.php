@@ -41,6 +41,7 @@
     </main>
 
     <?php require 'TEMPLATES/footer.php'; ?>
+    <?php require 'PHP/socket.php'; ?>
     <script src="JS/header.js"></script>
     <script src="JS/inicio_sesion.js"></script>
 </body>
