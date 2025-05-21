@@ -26,22 +26,22 @@
                         <div class="reward">
                             <h1>☑️</h1>
                             <p>Completa una tarea</p>
-                            <p>1/1</p>
+                            <p>❌</p>
                         </div>
                         <div class="reward">
                             <h1>✏️</h1>
                             <p>Agrega una tarea</p>
-                            <p>0/1</p>
+                            <p>✔️</p>
                         </div>
                         <div class="reward">
                             <h1>🔥</h1>
                             <p>Completa 3 tareas</p>
-                            <p>2/3</p>
+                            <p>❌</p>
                         </div>
                         <div class="reward">
                             <h1>📝</h1>
                             <p>Agrega 3 tareas</p>
-                            <p>0/3</p>
+                            <p>✔️</p>
                         </div>
                     </div>
                 </div>
@@ -52,6 +52,7 @@
     <?php require 'TEMPLATES/footer.php'; ?>
     <?php require 'PHP/socket.php'; ?>
     <script src="CONF/server_url.js"></script>
+    <script src="JS/Recompensas.js"></script>
     <script src="JS/header.js"></script>
 </body>
 

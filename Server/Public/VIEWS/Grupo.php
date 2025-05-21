@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 
 <head>
@@ -7,40 +7,30 @@
     <title>Detalle Grupo</title>
     <?php require 'PHP/cssStyles.php'; ?>
     <link rel="stylesheet" href="CSS/grupo.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script> <!-- 🔐 CryptoJS -->
 </head>
 
 <body>
     <?php require 'TEMPLATES/header.php'; ?>
+
     <div class="dm-container">
         <div class="sidebar">
-            <h2>"Nombre del grupo"</h2>
+            <h2 id="grupo-nombre">Cargando...</h2>
             <ul class="chat-list">
-                <li class="chat-item" onclick="openModal('Agregar')">
-                    Agregar integrante
-                </li>
-                <li class="chat-item" onclick="openModal('Eliminar')">
-                    Eliminar integrante
-                </li>
-                <li class="chat-item" onclick="openModal('Salir')">
-                    Abandonar Grupo
-                </li>
+                <li class="chat-item" onclick="openModal('Agregar')">Agregar integrante</li>
+                <li class="chat-item" onclick="openModal('Eliminar')">Eliminar integrante</li>
+                <li class="chat-item" onclick="openModal('Salir')">Abandonar Grupo</li>
             </ul>
         </div>
 
-        <!--VENTANAS MODALES-->
+        <!-- VENTANAS MODALES -->
         <div id="Agregar" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('Agregar')">&times;</span>
                 <h2>Agregar integrante</h2>
+                <ul id="lista-usuarios"></ul>
                 <br />
-                <h3>Selecciona</h3>
-                <ul>
-                    <li><input type="checkbox" name="" id="" />usuario1@email.com</li>
-                    <li><input type="checkbox" name="" id="" />usuario2@email.com</li>
-                    <li><input type="checkbox" name="" id="" />usuario3@email.com</li>
-                </ul>
-                <br />
-                <button type="submit">Agregar</button>
+                <button type="submit" id="agregar-btn">Agregar</button>
             </div>
         </div>
 
@@ -48,98 +38,59 @@
             <div class="modal-content">
                 <span class="close" onclick="closeModal('Eliminar')">&times;</span>
                 <h2>Eliminar integrante</h2>
+                <ul id="lista-eliminar"></ul>
                 <br />
-                <h3>Selecciona</h3>
-                <ul>
-                    <li><input type="checkbox" name="" id="" />usuario1@email.com</li>
-                    <li><input type="checkbox" name="" id="" />usuario2@email.com</li>
-                    <li><input type="checkbox" name="" id="" />usuario3@email.com</li>
-                </ul>
-                <br />
-                <button type="submit">Eliminar</button>
+                <button type="submit" id="eliminar-btn">Eliminar</button>
             </div>
         </div>
 
         <div id="Salir" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('Salir')">&times;</span>
-                <h2>¿Estas seguro de abandonar este grupo?</h2>
+                <h2>¿Estás seguro de abandonar este grupo?</h2>
                 <br />
-                <button type="submit">Confirmar</button>
+                <button type="submit" id="salir-btn">Confirmar</button>
             </div>
         </div>
 
-        <!--SCRIPT PROVISIONAL PARA VENTANAS-->
+        <!-- VENTANAS MODALES: FUNCIONES -->
         <script>
-        function openModal(Agregar) {
-            document.getElementById(Agregar).style.display = "block";
-        }
+            function openModal(modalId) {
+                document.getElementById(modalId).style.display = "block";
+                if (modalId === "Agregar") {
+                    socket.emit("Grupo_usuarios", { id_grupo });
+                }
+                if (modalId === "Eliminar") {
+                    socket.emit("Grupo_usuario_eliminar", { id_grupo });
+                }
+            }
 
-        function closeModal(Agregar) {
-            document.getElementById(Agregar).style.display = "none";
-        }
-
-        function openModal(Eliminar) {
-            document.getElementById(Eliminar).style.display = "block";
-        }
-
-        function closeModal(Eliminar) {
-            document.getElementById(Eliminar).style.display = "none";
-        }
-
-        function openModal(Salir) {
-            document.getElementById(Salir).style.display = "block";
-        }
-
-        function closeModal(Salir) {
-            document.getElementById(Salir).style.display = "none";
-        }
+            function closeModal(modalId) {
+                document.getElementById(modalId).style.display = "none";
+            }
         </script>
-        <!--VENTANAS MODALES-->
 
         <div class="chat-window">
             <div class="chat-header">
                 <div class="user-info">
                     <h3>Chat Grupal</h3>
                     <label>Cifrado de mensajes: </label>
-                    <button id="cifrado-btn" class="cifrado-btn" onclick="toggleCifrado()">
-                        Desactivado
-                    </button>
-
-                    <!--Script temporal para el boton de cifrado-->
-                    <script>
-                    function toggleCifrado() {
-                        var button = document.getElementById("cifrado-btn");
-                        button.classList.toggle("active");
-                        if (button.classList.contains("active")) {
-                            button.textContent = "Activado";
-                        } else {
-                            button.textContent = "Desactivado";
-                        }
-                    }
-                    </script>
+                    <button id="cifrado-btn" class="cifrado-btn">Desactivado</button>
+                    <small id="cifrado-aviso" style="color: green; display: none;">Los mensajes se están enviando cifrados.</small>
                 </div>
             </div>
 
             <div class="chat-messages">
-                <label for="" class="user">Usuario 1 🟢</label>
-                <div class="message received">Ejemplo 1</div>
-                <label for="" class="user">Yo</label>
-                <div class="message sent">Ejemplo 2</div>
-                <label for="" class="user">Usuario 2 🔴</label>
-                <div class="message received">Ejemplo 3</div>
+                <!-- Aquí se insertarán los mensajes dinámicamente -->
             </div>
 
             <div class="message-input">
                 <button id="imagenes-btn">
-                    <img src="IMG/clip.png" alt="Icono" />
+                    <img src="IMG/clip.png" alt="Imagen" />
                 </button>
-                <button id="audio-btn">
-                    <img src="IMG/logoaudio.png" alt="Icono" />
-                </button>
-                <button id="location-btn">
-                    <img src="IMG/ubicacion.png" alt="Icono" />
-                </button>
+                <input type="file" id="imagen-input" accept="image/*" style="display: none;" />
+                <img id="imagen-preview" src="" alt="Vista previa" style="display: none; max-width: 200px; margin-top: 10px;" />
+
                 <input type="text" placeholder="Escribe un mensaje..." id="message-box" />
                 <button id="send-btn">Enviar</button>
             </div>
@@ -148,7 +99,8 @@
 
     <?php require 'TEMPLATES/footer.php'; ?>
     <?php require 'PHP/socket.php'; ?>
-    <script src="CONF/server_url.js"></script>
+    <script src="CONF/server_url.js"></script>    
+    <script src="JS/grupo.js"></script>
     <script src="JS/header.js"></script>
 </body>
 

@@ -24,6 +24,7 @@ function showError(input, message) {
     input.classList.add("invalid");
   }
 }
+
 // Función para limpiar errores
 function clearError(input) {
   const errorMessage = input.parentNode.querySelector(".error-message");
@@ -34,31 +35,7 @@ function clearError(input) {
   }
 }
 
-// Escuchar cambios en los campos
-nombreInput.addEventListener("input", function () {
-  validarNombre();
-});
-apellidoPaternoInput.addEventListener("input", function () {
-  validarApellidoPaterno();
-});
-apellidoMaternoInput.addEventListener("input", function () {
-  validarApellidoMaterno();
-});
-emailInput.addEventListener("input", function () {
-  validarCorreo();
-});
-passwordInput.addEventListener("input", function () {
-  ValidarContrasenia();
-  validarContraseniaIgual();
-});
-confirmPasswordInput.addEventListener("input", function () {
-  validarContraseniaIgual();
-});
-fotoInput.addEventListener("change", function () {
-  validarImagen();
-});
-
-//Funciones para validar los campos
+// Validación de cada campo
 function validarNombre() {
   let isValid = true;
   if (nombreInput.value.trim() === "") {
@@ -72,6 +49,7 @@ function validarNombre() {
   }
   return isValid;
 }
+
 function validarApellidoPaterno() {
   let isValid = true;
   if (apellidoPaternoInput.value.trim() === "") {
@@ -85,6 +63,7 @@ function validarApellidoPaterno() {
   }
   return isValid;
 }
+
 function validarApellidoMaterno() {
   let isValid = true;
   if (apellidoMaternoInput.value.trim() === "") {
@@ -98,6 +77,7 @@ function validarApellidoMaterno() {
   }
   return isValid;
 }
+
 function validarCorreo() {
   let isValid = true;
   if (!emailRegex.test(emailInput.value)) {
@@ -108,7 +88,8 @@ function validarCorreo() {
   }
   return isValid;
 }
-function ValidarContrasenia() {
+
+function validarContrasenia() {
   let isValid = true;
   if (!passwordRegex.test(passwordInput.value)) {
     showError(
@@ -121,6 +102,7 @@ function ValidarContrasenia() {
   }
   return isValid;
 }
+
 function validarContraseniaIgual() {
   let isValid = true;
   if (passwordInput.value !== confirmPasswordInput.value) {
@@ -131,6 +113,8 @@ function validarContraseniaIgual() {
   }
   return isValid;
 }
+
+// Validar imagen antes de enviarla
 function validarImagen() {
   let isValid = true;
   if (!fotoInput.files || fotoInput.files.length === 0) {
@@ -141,21 +125,74 @@ function validarImagen() {
   }
   return isValid;
 }
+
+// Validar el formulario antes de enviarlo
 function validarFormulario() {
-  let isValid = true; // Se asume que todo está correcto
-
-  if (!validarNombre()) isValid = false;
-  if (!validarApellidoPaterno()) isValid = false;
-  if (!validarApellidoMaterno()) isValid = false;
-  if (!validarCorreo()) isValid = false;
-  if (!ValidarContrasenia()) isValid = false;
-  if (!validarContraseniaIgual()) isValid = false;
-  if (!validarImagen()) isValid = false;
-
-  return isValid; // Retorna false si hay al menos un error
+  return (
+    validarNombre() &&
+    validarApellidoPaterno() &&
+    validarApellidoMaterno() &&
+    validarCorreo() &&
+    validarContrasenia() &&
+    validarContraseniaIgual() &&
+    validarImagen()
+  );
 }
 
-// Previsualización de la imagen
+// Función para subir la imagen al servidor
+function subirImagen(id_usuario, file) {
+  const formData = new FormData();
+  formData.append("imagen_usuario", file);
+  formData.append("id_usuario", id_usuario);
+
+  fetch(`${SERVER_URL}/subir_imagen`, {
+    method: "POST",
+    body: formData
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        console.log("✅ Imagen subida correctamente:", data.ruta);
+      } else {
+        console.error("❌ Error al subir imagen:", data.message);
+      }
+    })
+    .catch(error => console.error("❌ Error de red:", error));
+}
+
+// Manejar el envío del formulario
+registerBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  if (validarFormulario()) {
+    const usuarioData = {
+      nombre: nombreInput.value.trim(),
+      apellido_paterno: apellidoPaternoInput.value.trim(),
+      apellido_materno: apellidoMaternoInput.value.trim(),
+      correo: emailInput.value.trim(),
+      contrasenia: passwordInput.value.trim()
+    };
+
+    socket.emit("registrar_usuario", usuarioData);
+
+    // Escuchar respuesta del servidor y subir imagen
+    socket.on("registro_respuesta", (respuesta) => {
+      if (respuesta.success) {
+        const id_usuario = respuesta.insertId; // Obtener ID del usuario
+        alert("✅ Registro exitoso. Serás redirigido a la página de inicio de sesión.");
+        if (fotoInput.files.length > 0) {
+          subirImagen(id_usuario, fotoInput.files[0]); // Subir imagen
+        }
+      } else {
+        alert("❌ Error al registrar usuario: " + respuesta.message);
+      }
+    });
+  } else {
+    alert("Por favor, corrige los errores antes de enviar.");
+  }
+});
+
+// Previsualizar imagen antes de enviarla
 fotoInput.addEventListener("change", function (event) {
   const file = event.target.files[0];
   if (file) {
@@ -164,31 +201,5 @@ fotoInput.addEventListener("change", function (event) {
       profilePreview.src = e.target.result;
     };
     reader.readAsDataURL(file);
-  }
-});
-// Manejar el envío del formulario
-registerBtn.addEventListener("click", function (event) {
-  event.preventDefault();
-  if (validarFormulario()) {
-    const usuarioData = {
-      nombre: nombreInput.value.trim(),
-      apellido_paterno: apellidoPaternoInput.value.trim(),
-      apellido_materno: apellidoMaternoInput.value.trim(),
-      correo: emailInput.value.trim(),
-      contrasenia: passwordInput.value.trim(),
-    };
-    socket.emit("registrar_usuario", usuarioData);
-  } else {
-    alert("Por favor, corrige los errores antes de enviar.");
-    return false; // Evita el envío si hay errores
-  }
-});
-
-socket.on("registro_respuesta", (respuesta) => {
-  if (respuesta.success) {
-    alert(respuesta.message);
-    window.location.href = "inicio_sesion";
-  } else {
-    alert(respuesta.message);
   }
 });

@@ -1,100 +1,140 @@
-// Seleccionar todos los campos
+// Conectar con el servidor mediante WebSockets
+const socket = io(SERVER_URL);
+
+
+// Obtener elementos del formulario
 const nombreInput = document.getElementById("nombreGrupo");
 const crear_grupoBtn = document.getElementById("crear_grupoBtn");
 
 // Función para mostrar errores
 function showError(input, message) {
-  const errorMessage = input.parentNode.querySelector(".error-message");
-  if (errorMessage) {
-    errorMessage.textContent = message;
-    errorMessage.style.display = "block";
-    input.classList.add("invalid");
-  }
+    const errorMessage = input.parentNode.querySelector(".error-message");
+    if (errorMessage) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = "block";
+        input.classList.add("invalid");
+    }
 }
+
 // Función para limpiar errores
 function clearError(input) {
-  const errorMessage = input.parentNode.querySelector(".error-message");
-  if (errorMessage) {
-    errorMessage.textContent = "";
-    errorMessage.style.display = "none";
-    input.classList.remove("invalid");
-  }
+    const errorMessage = input.parentNode.querySelector(".error-message");
+    if (errorMessage) {
+        errorMessage.textContent = "";
+        errorMessage.style.display = "none";
+        input.classList.remove("invalid");
+    }
 }
 
-// Escuchar cambios en los campos
+// Validar nombre del grupo
 nombreInput.addEventListener("input", function () {
-  validarNombre();
+    validarNombre();
 });
 
-//Funciones para validar los campos
 function validarNombre() {
-  let isValid = true;
-  if (nombreInput.value.trim() === "") {
-    showError(nombreInput, "El nombre del grupo es obligatorio.");
-    isValid = false;
-  } else {
+    if (nombreInput.value.trim() === "") {
+        showError(nombreInput, "El nombre del grupo es obligatorio.");
+        return false;
+    }
     clearError(nombreInput);
-  }
-  return isValid;
+    return true;
 }
+
 function validarFormulario() {
-  let isValid = true; // Se asume que todo está correcto
-
-  if (!validarNombre()) isValid = false;
-
-  return isValid; // Retorna false si hay al menos un error
+    return validarNombre();
 }
 
-// Manejar el envío del formulario
+// Manejar la creación de grupos
 crear_grupoBtn.addEventListener("click", function (event) {
-  event.preventDefault();
-  if (validarFormulario()) {
-    const name = document.getElementById("nombreGrupo").value;
-    alert(name + " se ha Creado!");
-    closeModal();
-    window.location.href = "grupos";
-  } else {
-    alert("Por favor, corrige los errores antes de enviar.");
-    return false; // Evita el envío si hay errores
-  }
+    event.preventDefault();
+
+    if (validarFormulario()) {
+        const nombreGrupo = nombreInput.value.trim();
+        const id_creador = localStorage.getItem("idUsuario");
+
+        if (!id_creador) {
+            alert("Error: No se encontró el ID del usuario. Por favor, inicia sesión nuevamente.");
+            window.location.href = "inicio_sesion";
+            return;
+        }
+
+        console.log("📡 Enviando datos de nuevo grupo:", { nombre: nombreGrupo, id_creador });
+        socket.emit("crear_grupo", { nombre: nombreGrupo, id_creador });
+    } else {
+        alert("Por favor, corrige los errores antes de enviar.");
+    }
 });
 
+// Escuchar respuesta del servidor sobre la creación del grupo
+socket.on("grupo_creado", (data) => {
+    if (data.success) {
+        alert(`✅ El grupo "${data.nombre}" se ha creado exitosamente.`);
+        closeModal();
+        socket.emit("obtener_grupos", { id_usuario: localStorage.getItem("idUsuario") });
+    } else {
+        alert("❌ Hubo un error al crear el grupo.");
+    }
+});
+
+// Validar sesión del usuario y obtener grupos
+document.addEventListener("DOMContentLoaded", function () {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        socket.emit("validar_sesion", token);
+    } else {
+        alert("Sesión expirada. Por favor, inicia sesión.");
+        window.location.href = "inicio_sesion";
+    }
+
+    socket.on("validar_respuesta", (respuesta) => {
+        if (respuesta.success) {
+            console.log("Sesión válida para el usuario:", respuesta.usuario.Nombre);
+            localStorage.setItem("idUsuario", respuesta.usuario.id_usuario);
+            socket.emit("obtener_grupos", { id_usuario: respuesta.usuario.id_usuario });
+        } else {
+            alert("Tu sesión ya no es válida. Por favor, inicia sesión nuevamente.");
+            localStorage.removeItem("token");
+            window.location.href = "inicio_sesion";
+        }
+    });
+});
+
+// Mostrar los grupos del usuario con redirección a Grupo.php
+socket.on("lista_grupos", (data) => {
+    if (data.success) {
+        const container = document.getElementById("teams-list");
+        container.innerHTML = "";
+
+        data.grupos.forEach(grupo => {
+            const teamElement = document.createElement("div");
+            teamElement.classList.add("team");
+            teamElement.innerHTML = `
+                <img src="IMG/Equipo2.png" alt="Icono">
+                <p>${grupo.Nombre}</p>
+            `;
+            teamElement.onclick = () => {
+                const id_usuario = localStorage.getItem("idUsuario");
+                localStorage.setItem("grupoSeleccionado", grupo.id_grupo);
+                localStorage.setItem("usuarioSeleccionado", id_usuario);
+
+                console.log("📌 ID del grupo guardado:", grupo.id_grupo);
+                console.log("👤 ID del usuario guardado:", id_usuario);
+
+                window.location.href = "grupo";
+            };
+            container.appendChild(teamElement);
+        });
+    } else {
+        console.log("No se pudieron obtener los grupos.");
+    }
+});
+
+// Funciones para abrir y cerrar el modal de creación de grupos
 function openModal() {
-  document.getElementById("myModal").style.display = "flex";
+    document.getElementById("myModal").style.display = "flex";
 }
 
 function closeModal() {
-  document.getElementById("myModal").style.display = "none";
+    document.getElementById("myModal").style.display = "none";
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  const socket = io(SERVER_URL); // Conectar al servidor con Socket.IO
-
-  // Obtener el token de sesión del almacenamiento local
-  const token = localStorage.getItem("token");
-  if (token) {
-    // Validar la sesión con el servidor
-    socket.emit("validar_sesion", token);
-  } else {
-    // Redirigir al inicio de sesión si no hay un token
-    alert("Sesión expirada. Por favor, inicia sesión.");
-    window.location.href = "inicio_sesion";
-  }
-
-  // Escuchar la respuesta del servidor sobre la validación de la sesión
-  socket.on("validar_respuesta", (respuesta) => {
-    if (!respuesta.success) {
-      // Si la sesión no es válida, redirigir al inicio de sesión
-      alert("Tu sesión ya no es válida. Por favor, inicia sesión nuevamente.");
-      localStorage.removeItem("token"); // Eliminar el token inválido
-      window.location.href = "inicio_sesion";
-    } else {
-      console.log("Sesión válida para el usuario:", respuesta.usuario.Nombre);
-    }
-  });
-
-  // Escuchar desconexión del servidor (opcional)
-  socket.on("disconnect", () => {
-    console.log("Cliente desconectado");
-  });
-});

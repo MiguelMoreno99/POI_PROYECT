@@ -7,10 +7,12 @@
     <title>Mensajes Directos</title>
     <?php require 'PHP/cssStyles.php'; ?>
     <link rel="stylesheet" href="CSS/mensajes.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 
 <body>
     <?php require 'TEMPLATES/header.php'; ?>
+    
     <div class="dm-container">
         <div class="sidebar">
             <h2>Chats</h2>
@@ -20,46 +22,21 @@
                 <button class="btn-search">Buscar</button>
             </div>
 
-            <ul class="chat-list">
-                <li class="chat-item">
-                    Usuario 1 <label class="recompensasUsuario">4⭐</label>
-                    <label class="messageNotification">+1 mensaje</label>
-                </li>
-                <li class="chat-item">
-                    Usuario 2 <label class="recompensasUsuario">1⭐</label>
-                    <label class="messageNotification">+2 mensajes</label>
-                </li>
-                <li class="chat-item">
-                    Usuario 3 <label class="recompensasUsuario">0⭐</label><label class="messageNotification"></label>
-                </li>
-            </ul>
+            <ul class="chat-list"></ul> <!-- Esta lista se llena dinámicamente -->
         </div>
 
         <div class="chat-window">
             <div class="chat-header">
                 <div class="user-info">
-                    <h3>Usuario 1</h3>
-                    <label class="estadoUsuario">Activo 🟢</label>
+                    <h3>Usuario</h3>
                 </div>
+                
                 <label>Cifrado de mensajes: </label>
-                <button id="cifrado-btn" class="cifrado-btn" onclick="toggleCifrado()">
+                <button id="cifrado-btn" class="cifrado-btn" disabled>
                     Desactivado
                 </button>
 
-                <!--Script temporal para el boton de cifrado-->
-                <script>
-                function toggleCifrado() {
-                    var button = document.getElementById("cifrado-btn");
-                    button.classList.toggle("active");
-                    if (button.classList.contains("active")) {
-                        button.textContent = "Activado";
-                    } else {
-                        button.textContent = "Desactivado";
-                    }
-                }
-                </script>
-
-                <button id="videollamada-btn" onclick="location.href='videollamada'">
+                <button id="videollamada-btn">
                     <img src="IMG/logovideollamada.png" alt="Icono" />
                 </button>
             </div>
@@ -73,12 +50,9 @@
                 <button id="imagenes-btn">
                     <img src="IMG/clip.png" alt="Icono" />
                 </button>
-                <button id="audio-btn">
-                    <img src="IMG/logoaudio.png" alt="Icono" />
-                </button>
-                <button id="location-btn">
-                    <img src="IMG/ubicacion.png" alt="Icono" />
-                </button>
+                <input type="file" id="imagen-input" accept="image/*" style="display: none;" />
+                <img id="imagen-preview" src="" alt="Vista previa" style="display: none; max-width: 200px; margin-top: 10px;" />
+
                 <input type="text" placeholder="Escribe un mensaje..." id="message-box" />
                 <button id="send-btn">Enviar</button>
             </div>

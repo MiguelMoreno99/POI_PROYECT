@@ -1,111 +1,132 @@
-// Seleccionar todos los campos
-const tituloTareaInput = document.getElementById('tituloTareaInput');
-const instruccionesTareaInput = document.getElementById('instruccionesTareaInput');
-const FechaTareaInput = document.getElementById('FechaTareaInput');
-const crear_tareaBtn = document.getElementById('crear_tareaBtn');
+// Conectar con el servidor mediante WebSockets
+const socket = io(SERVER_URL);
 
-// Función para mostrar errores
-function showError(input, message) {
-    const errorMessage = input.parentNode.querySelector('.error-message');
-    if (errorMessage) {
-        errorMessage.textContent = message;
-        errorMessage.style.display = 'block';
-        input.classList.add('invalid');
-    }
-}
-// Función para limpiar errores
-function clearError(input) {
-    const errorMessage = input.parentNode.querySelector('.error-message');
-    if (errorMessage) {
-        errorMessage.textContent = '';
-        errorMessage.style.display = 'none';
-        input.classList.remove('invalid');
-    }
+// Obtener elementos del formulario
+const tituloTareaInput = document.getElementById("tituloTareaInput");
+const instruccionesTareaInput = document.getElementById("instruccionesTareaInput");
+const FechaTareaInput = document.getElementById("FechaTareaInput");
+const grupoSeleccionado = document.getElementById("grupoSeleccionado");
+const crear_tareaBtn = document.getElementById("crear_tareaBtn");
+
+// Obtener ID del usuario desde `localStorage`
+const usuarioActualId = localStorage.getItem("idUsuario");
+
+// Verificar si el usuario está autenticado
+if (!usuarioActualId) {
+    alert("Sesión expirada. Por favor, inicia sesión.");
+    window.location.href = "inicio_sesion";
 }
 
-// Escuchar cambios en los campos
-tituloTareaInput.addEventListener('input', function () {
-    validarTitulo();
+// 🔹 Solicitar los grupos creados por el usuario
+document.addEventListener("DOMContentLoaded", function () {
+    socket.emit("obtener_grupos_creados", { id_usuario: usuarioActualId });
+
+    socket.on("lista_grupos_creados", (data) => {
+        if (data.success) {
+            grupoSeleccionado.innerHTML = '<option value="">Selecciona un grupo...</option>';
+
+            data.grupos.forEach(grupo => {
+                const option = document.createElement("option");
+                option.value = grupo.id_grupo;
+                option.textContent = grupo.Nombre;
+                grupoSeleccionado.appendChild(option);
+            });
+
+            console.log("✅ Grupos cargados correctamente.");
+        } else {
+            console.error("❌ No se pudieron obtener los grupos:", data.message);
+        }
+    });
 });
-instruccionesTareaInput.addEventListener('input', function () {
-    validarInstrucciones();
-});
-FechaTareaInput.addEventListener('input', function () {
-    validarFecha();
-});
 
-//Funciones para validar los campos
-function validarTitulo() {
-    let isValid = true;
-    if (tituloTareaInput.value.trim() === '') {
-        showError(tituloTareaInput, 'El Titulo de la tarea es obligatorio.');
-        isValid = false;
-    }
-    else {
-        clearError(tituloTareaInput);
-    }
-    return isValid;
-}
-function validarInstrucciones() {
-    let isValid = true;
-    if (instruccionesTareaInput.value.trim() === '') {
-        showError(instruccionesTareaInput, 'Las instrucciones de la Tarea son obligatorias.');
-        isValid = false;
-    }
-    else {
-        clearError(instruccionesTareaInput);
-    }
-    return isValid;
-}
-function validarFecha() {
-    let isValid = true;
-    const fechaIngresada = new Date(FechaTareaInput.value);
-    const fechaActual = new Date();
-
-    // Ajustar la fecha actual para comparar solo la parte de la fecha (sin hora)
-    fechaActual.setHours(0, 0, 0, 0);
-
-    if (isNaN(fechaIngresada.getTime())) {
-        showError(FechaTareaInput, 'Debe ingresar una fecha válida.');
-        isValid = false;
-    } else if (fechaIngresada <= fechaActual) {
-        showError(FechaTareaInput, 'La fecha debe ser mayor a la fecha actual.');
-        isValid = false;
-    } else {
-        clearError(FechaTareaInput);
-    }
-
-    return isValid;
-}
-function validarFormulario() {
-    let isValid = true; // Se asume que todo está correcto
-
-    if (!validarTitulo()) isValid = false;
-    if (!validarInstrucciones()) isValid = false;
-    if (!validarFecha()) isValid = false;
-
-    return isValid; // Retorna false si hay al menos un error
-}
-
-// Manejar el envío del formulario
-crear_tareaBtn.addEventListener('click', function (event) {
+// 🔹 Manejar la creación de tareas
+crear_tareaBtn.addEventListener("click", function (event) {
     event.preventDefault();
-    if (validarFormulario()) {
-        const name = document.getElementById('tituloTareaInput').value;
-        const date = document.getElementById('FechaTareaInput').value;
-        alert("¡TAREA CREADA CON EXITO! \n Nombre: " + name + " \n Fecha de entrega: " + date);
-        closeModal();
-        window.location.href = "tareas";
+
+    if (tituloTareaInput.value.trim() && instruccionesTareaInput.value.trim() && FechaTareaInput.value) {
+        const titulo = tituloTareaInput.value.trim();
+        const descripcion = instruccionesTareaInput.value.trim();
+        const fechaVencimiento = FechaTareaInput.value;
+        const idGrupo = grupoSeleccionado.value;
+
+        if (!idGrupo) {
+            alert("Por favor, selecciona un grupo para la tarea.");
+            return;
+        }
+
+        console.log("📡 Enviando nueva tarea al servidor:", { usuarioActualId, titulo, descripcion, fechaVencimiento, idGrupo });
+        socket.emit("crear_tarea", { idUsuario: usuarioActualId, titulo, descripcion, fechaVencimiento, idGrupo });
     } else {
-        alert("Por favor, corrige los errores antes de enviar.");
-        return false; // Evita el envío si hay errores
+        alert("Por favor, completa todos los campos antes de enviar.");
     }
 });
 
+// 🔹 Obtener y mostrar las tareas del usuario
+socket.emit("obtener_tareas_usuario", { id_usuario: usuarioActualId });
+
+socket.on("lista_tareas_usuario", (data) => {
+    if (data.success) {
+        const tareasContainer = document.createElement("div");
+        tareasContainer.classList.add("task-list");
+
+        data.tareas.forEach(tarea => {
+            const tareaElement = document.createElement("a");
+            tareaElement.href = "detalle_tarea";
+            tareaElement.classList.add("task");
+            tareaElement.innerHTML = `
+                <div class="date">${tarea.fecha_vencimiento}</div>
+                <div class="details">
+                    <h2>${tarea.titulo}</h2>
+                    <p>Grupo: ${tarea.grupo}</p>
+                    <p>${tarea.descripcion}</p>
+                </div>
+                <div class="status">${tarea.estatus === 0 ? "Pendiente" : "Completada"}</div>
+            `;
+
+            // Guardar ID de tarea y usuario en `localStorage`
+            tareaElement.onclick = (event) => {
+                event.preventDefault();
+                localStorage.setItem("tareaSeleccionada", tarea.id_tarea);
+                localStorage.setItem("usuarioSeleccionado", usuarioActualId);
+                console.log("📌 ID de tarea guardado:", tarea.id_tarea);
+                console.log("👤 ID de usuario guardado:", usuarioActualId);
+                window.location.href = "detalle_tarea";
+            };
+
+            tareasContainer.appendChild(tareaElement);
+        });
+
+        const container = document.querySelector(".container");
+        const header = document.querySelector(".task-header");
+        const modal = document.getElementById("myModal");
+
+        container.innerHTML = "";
+        container.appendChild(header);
+        container.appendChild(modal);
+        container.appendChild(tareasContainer);
+
+        console.log("✅ Tareas cargadas correctamente.");
+    } else {
+        console.error("❌ No se pudieron obtener las tareas.");
+    }
+});
+
+// 🔹 Escuchar respuesta del servidor sobre la creación de la tarea
+socket.on("tarea_creada", (data) => {
+    if (data.success) {
+        alert(`✅ La tarea "${data.titulo}" ha sido creada exitosamente.`);
+        closeModal();
+        socket.emit("obtener_tareas_usuario", { id_usuario: usuarioActualId });
+    } else {
+        alert("❌ Hubo un error al crear la tarea.");
+    }
+});
+
+// 🔹 Funciones para abrir y cerrar el modal de creación de tareas
 function openModal() {
-    document.getElementById('myModal').style.display = 'flex';
+    document.getElementById("myModal").style.display = "flex";
 }
 
 function closeModal() {
-    document.getElementById('myModal').style.display = 'none';
+    document.getElementById("myModal").style.display = "none";
 }

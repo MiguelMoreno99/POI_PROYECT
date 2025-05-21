@@ -38,47 +38,8 @@
             <br />
             <div class="teams-container">
                 <br />
-                <br />
-                <div class="teams">
-                    <div class="team" onclick="location.href='grupo'">
-                        <img src="IMG/Equipo2.png" alt="Icono" />
-                        <p>Equipo1</p>
-                        <label class="MessageNotification">1 nuevo mensaje</label>
-                    </div>
-                    <div class="team" onclick="location.href='grupo'">
-                        <img src="IMG/Equipo2.png" alt="Icono" />
-                        <p>Equipo2</p>
-                        <label class="MessageNotification">2 nuevos mensajes</label>
-                    </div>
-                    <div class="team" onclick="location.href='grupo'">
-                        <img src="IMG/Equipo2.png" alt="Icono" />
-                        <p>Equipo3</p>
-                        <label class="MessageNotification"></label>
-                    </div>
-                    <div class="team" onclick="location.href='grupo'">
-                        <img src="IMG/Equipo2.png" alt="Icono" />
-                        <p>Equipo4</p>
-                        <label class="MessageNotification"></label>
-                    </div>
-                    <div class="team" onclick="location.href='grupo'">
-                        <img src="IMG/Equipo2.png" alt="Icono" />
-                        <p>Equipo5</p>
-                        <label class="MessageNotification"></label>
-                    </div>
-                    <div class="team" onclick="location.href='grupo'">
-                        <img src="IMG/Equipo2.png" alt="Icono" />
-                        <p>Equipo6</p>
-                        <label class="MessageNotification"></label>
-                    </div>
-                    <div class="team" onclick="location.href='grupo'">
-                        <img src="IMG/Equipo2.png" alt="Icono" />
-                        <p>Equipo7</p>
-                        <label class="MessageNotification"></label>
-                    </div>
-                    <div class="team" onclick="location.href='grupo'">
-                        <img src="IMG/Equipo2.png" alt="Icono" />
-                        <p>Equipo8</p>
-                    </div>
+                <div class="teams" id="teams-list">
+                    <!-- Los grupos se generarán dinámicamente aquí -->
                 </div>
             </div>
         </div>

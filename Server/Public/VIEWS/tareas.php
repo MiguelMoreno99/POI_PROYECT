@@ -26,6 +26,15 @@
                     </div>
 
                     <div class="form-grupo">
+    <h3>Seleccionar Grupo</h3>
+    <select id="grupoSeleccionado">
+        <option value="">Selecciona un grupo...</option>
+        <!-- Los grupos se insertarán dinámicamente aquí -->
+    </select>
+    <div class="error-message"></div>
+</div>
+
+                    <div class="form-grupo">
                         <h3>Instrucciones</h3>
                         <textarea id="instruccionesTareaInput" name="instruccionesTarea" rows="6"></textarea>
                         <div class="error-message"></div>

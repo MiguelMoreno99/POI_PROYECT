@@ -1,164 +1,182 @@
-// Seleccionar todos los campos
-const nombreInput = document.getElementById('nombre');
-const apellidoPaternoInput = document.getElementById('apellido_paterno');
-const apellidoMaternoInput = document.getElementById('apellido_materno');
-const passwordInput = document.getElementById('password');
-const confirmPasswordInput = document.getElementById('confirm_password');
-const fotoInput = document.getElementById('foto');
-const profilePreview = document.getElementById('profilePreview');
-const guardar_cambiosBtn = document.getElementById('guardar_cambiosBtn');
+document.addEventListener("DOMContentLoaded", () => {
+    const socket = io(SERVER_URL); // Conectar al servidor con WebSockets
+    const usuarioActualId = localStorage.getItem("idUsuario"); // Obtener el ID del usuario desde el almacenamiento local
 
-// Expresiones regulares para validación
-const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/; // Contraseña válida
-const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/; // Solo letras y espacios
+    const token = localStorage.getItem("token");
 
-// Función para mostrar errores
-function showError(input, message) {
-    const errorMessage = input.parentNode.querySelector('.error-message');
-    if (errorMessage) {
-        errorMessage.textContent = message;
-        errorMessage.style.display = 'block';
-        input.classList.add('invalid');
+    if (token) {
+        socket.emit("validar_sesion", token);
+    } else {
+        alert("Sesión expirada. Por favor, inicia sesión.");
+        window.location.href = "inicio_sesion";
     }
-}
-// Función para limpiar errores
-function clearError(input) {
-    const errorMessage = input.parentNode.querySelector('.error-message');
-    if (errorMessage) {
-        errorMessage.textContent = '';
-        errorMessage.style.display = 'none';
-        input.classList.remove('invalid');
-    }
-}
 
-// Escuchar cambios en los campos
-nombreInput.addEventListener('input', function () {
-    validarNombre();
-});
-apellidoPaternoInput.addEventListener('input', function () {
-    validarApellidoPaterno();
-});
-apellidoMaternoInput.addEventListener('input', function () {
-    validarApellidoMaterno();
-});
-passwordInput.addEventListener('input', function () {
-    ValidarContrasenia();
-    validarContraseniaIgual();
-});
-confirmPasswordInput.addEventListener('input', function () {
-    validarContraseniaIgual();
-});
-fotoInput.addEventListener('change', function () {
-    validarImagen();
-});
+    socket.on("validar_respuesta", (respuesta) => {
+        if (respuesta.success) {
+            console.log("✅ Sesión válida para el usuario:", respuesta.usuario.Nombre);
+            socket.emit("obtener_usuario", { id_usuario: respuesta.usuario.id_usuario });
+        } else {
+            alert("Tu sesión ya no es válida. Por favor, inicia sesión nuevamente.");
+            localStorage.removeItem("token");
+            window.location.href = "inicio_sesion";
+        }
+    });
 
-//Funciones para validar los campos
-function validarNombre() {
-    let isValid = true;
-    if (nombreInput.value.trim() === '') {
-        showError(nombreInput, 'El nombre es obligatorio.');
-        isValid = false;
-    } else if (!nombreRegex.test(nombreInput.value)) {
-        showError(nombreInput, 'Solo se permiten letras y espacios.');
-        isValid = false;
+    if (!usuarioActualId) {
+        alert("Error: No se encontró el ID del usuario. Por favor, inicia sesión nuevamente.");
+        window.location.href = "inicio_sesion.php";
+        return;
     }
-    else {
+
+    console.log("🔍 Solicitando datos del usuario con ID:", usuarioActualId);
+    socket.emit("obtener_usuario", { id_usuario: usuarioActualId });
+
+    // Escuchar respuesta del servidor con los datos del usuario y los logros
+    socket.on("usuario_respuesta", (data) => {
+        if (data.success) {
+            console.log("✅ Datos del usuario recibidos:", data.usuario);
+            console.log("🏆 Logros obtenidos:", data.logros);
+            console.log(`🌟 Total de logros obtenidos: ${data.totalLogros}`);
+
+            // ✅ Actualizar la información del usuario en la página
+            document.getElementById("correoUsuario").innerText = data.usuario.correo_electronico;
+            document.getElementById("nombre").value = data.usuario.Nombre;
+            document.getElementById("apellido_paterno").value = data.usuario.Apellido_paterno;
+            document.getElementById("apellido_materno").value = data.usuario.Apellido_materno;
+
+            // ✅ Mostrar imagen de perfil
+            const profileImage = document.getElementById("profilePreview");
+            profileImage.src = data.usuario.imagen && data.usuario.imagen !== "" 
+                ? `${SERVER_URL}/${data.usuario.imagen}` 
+                : "IMG/perfil.webp";
+
+            // ✅ Mostrar el número total de logros obtenidos en lugar de "4⭐"
+            document.getElementById("totalLogros").innerText = `${data.totalLogros}⭐`;
+
+            // ✅ Insertar los logros en la lista
+            const logrosContainer = document.getElementById("listaLogros");
+            logrosContainer.innerHTML = ""; // Limpiar lista
+
+            if (data.logros.length > 0) {
+                data.logros.forEach(logro => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = logro.Nombre;
+                    logrosContainer.appendChild(listItem);
+                });
+                console.log("✅ Logros mostrados correctamente.");
+            } else {
+                logrosContainer.innerHTML = "<li>No hay logros obtenidos</li>";
+            }
+        } else {
+            console.error("❌ Error al recibir datos del usuario:", data.message);
+        }
+    });
+
+    // Manejo de validaciones y actualización de datos
+    const nombreInput = document.getElementById("nombre");
+    const apellidoPaternoInput = document.getElementById("apellido_paterno");
+    const apellidoMaternoInput = document.getElementById("apellido_materno");
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirm_password");
+    const guardar_cambiosBtn = document.getElementById("guardar_cambiosBtn");
+
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+
+    function showError(input, message) {
+        const errorMessage = input.parentNode.querySelector(".error-message");
+        if (errorMessage) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = "block";
+            input.classList.add("invalid");
+        }
+    }
+
+    function clearError(input) {
+        const errorMessage = input.parentNode.querySelector(".error-message");
+        if (errorMessage) {
+            errorMessage.textContent = "";
+            errorMessage.style.display = "none";
+            input.classList.remove("invalid");
+        }
+    }
+
+    function validarNombre() {
+        if (nombreInput.value.trim() === "" || !nombreRegex.test(nombreInput.value)) {
+            showError(nombreInput, "El nombre es obligatorio y solo puede contener letras y espacios.");
+            return false;
+        }
         clearError(nombreInput);
+        return true;
     }
-    return isValid;
-}
-function validarApellidoPaterno() {
-    let isValid = true;
-    if (apellidoPaternoInput.value.trim() === '') {
-        showError(apellidoPaternoInput, 'El apellido paterno es obligatorio.');
-        isValid = false;
-    } else if (!nombreRegex.test(apellidoPaternoInput.value)) {
-        showError(apellidoPaternoInput, 'Solo se permiten letras y espacios.');
-        isValid = false;
-    } else {
+
+    function validarApellidoPaterno() {
+        if (apellidoPaternoInput.value.trim() === "" || !nombreRegex.test(apellidoPaternoInput.value)) {
+            showError(apellidoPaternoInput, "El apellido paterno es obligatorio y solo puede contener letras y espacios.");
+            return false;
+        }
         clearError(apellidoPaternoInput);
+        return true;
     }
-    return isValid;
-}
-function validarApellidoMaterno() {
-    let isValid = true;
-    if (apellidoMaternoInput.value.trim() === '') {
-        showError(apellidoMaternoInput, 'El apellido materno es obligatorio.');
-        isValid = false;
-    } else if (!nombreRegex.test(apellidoMaternoInput.value)) {
-        showError(apellidoMaternoInput, 'Solo se permiten letras y espacios.');
-        isValid = false;
-    } else {
+
+    function validarApellidoMaterno() {
+        if (apellidoMaternoInput.value.trim() === "" || !nombreRegex.test(apellidoMaternoInput.value)) {
+            showError(apellidoMaternoInput, "El apellido materno es obligatorio y solo puede contener letras y espacios.");
+            return false;
+        }
         clearError(apellidoMaternoInput);
+        return true;
     }
-    return isValid;
-}
-function ValidarContrasenia() {
-    let isValid = true;
-    if (!passwordRegex.test(passwordInput.value)) {
-        showError(
-            passwordInput,
-            'La contraseña debe tener al menos 8 caracteres, 1 número, 1 mayúscula, 1 minúscula y 1 carácter especial.'
-        );
-        isValid = false;
-    } else {
+
+    function validarContrasenia() {
+        if (!passwordRegex.test(passwordInput.value)) {
+            showError(passwordInput, "La contraseña debe tener al menos 8 caracteres, 1 número, 1 mayúscula, 1 minúscula y 1 carácter especial.");
+            return false;
+        }
         clearError(passwordInput);
+        return true;
     }
-    return isValid;
-}
-function validarContraseniaIgual() {
-    let isValid = true;
-    if (passwordInput.value !== confirmPasswordInput.value) {
-        showError(confirmPasswordInput, 'Las contraseñas no coinciden.');
-        isValid = false;
-    } else {
+
+    function validarContraseniaIgual() {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            showError(confirmPasswordInput, "Las contraseñas no coinciden.");
+            return false;
+        }
         clearError(confirmPasswordInput);
+        return true;
     }
-    return isValid;
-}
-function validarImagen() {
-    let isValid = true;
-    if (!fotoInput.files || fotoInput.files.length === 0) {
-        showError(fotoInput, 'Debes seleccionar una imagen.');
-        isValid = false;
-    } else {
-        clearError(fotoInput);
+
+    function validarFormulario() {
+        return validarNombre() && validarApellidoPaterno() && validarApellidoMaterno() && validarContrasenia() && validarContraseniaIgual();
     }
-    return isValid;
-}
-function validarFormulario() {
-    let isValid = true; // Se asume que todo está correcto
 
-    if (!validarNombre()) isValid = false;
-    if (!validarApellidoPaterno()) isValid = false;
-    if (!validarApellidoMaterno()) isValid = false;
-    if (!ValidarContrasenia()) isValid = false;
-    if (!validarContraseniaIgual()) isValid = false;
-    if (!validarImagen()) isValid = false;
+    // ✅ Guardar cambios y actualizar en la base de datos
+    guardar_cambiosBtn.addEventListener("click", function (event) {
+        event.preventDefault();
 
-    return isValid; // Retorna false si hay al menos un error
-}
+        if (validarFormulario()) {
+            const datosActualizados = {
+                id_usuario: usuarioActualId,
+                Nombre: nombreInput.value.trim(),
+                Apellido_paterno: apellidoPaternoInput.value.trim(),
+                Apellido_materno: apellidoMaternoInput.value.trim(),
+                contrasenia: passwordInput.value.trim()
+            };
 
-// Previsualización de la imagen
-fotoInput.addEventListener('change', function (event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            profilePreview.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-});
+            console.log("📡 Enviando datos actualizados:", datosActualizados);
+            socket.emit("actualizar_usuario", datosActualizados);
+        } else {
+            alert("Por favor, corrige los errores antes de actualizar.");
+        }
+    });
 
-// Manejar el envío del formulario
-guardar_cambiosBtn.addEventListener('click', function (event) {
-    event.preventDefault();
-    if (validarFormulario()) {
-        alert("Se guardó la informacion!");
-        window.location.href = "/"; // Cambia "index.html" por tu página principal
-    } else {
-        alert("Por favor, corrige los errores antes de enviar.");
-        return false; // Evita el envío si hay errores
-    }
+    // ✅ Escuchar respuesta del servidor
+    socket.on("usuario_actualizado", (respuesta) => {
+        if (respuesta.success) {
+            alert("✅ Información actualizada correctamente.");
+            window.location.reload();
+        } else {
+            alert("❌ Error al actualizar la información: " + respuesta.message);
+        }
+    });
 });
